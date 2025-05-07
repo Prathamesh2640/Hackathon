@@ -37,7 +37,7 @@ function jwtAuth(req, resp, next) {
   if (!decoded) resp.status(403).send("Unauthoized Access - Invalid token");
   else {
     // otherwise, pass request to next.
-    req.user = { id: decoded.id, role: decoded.role };
+    req.user = { id: decoded.id };
     next();
   }
 }
