@@ -13,8 +13,9 @@ const UserLayout = () => {
                 className="p-3 text-center text-white fw-bold fs-5"
                 style={{ background: "linear-gradient(to right, #ff8a00, #e52e71)" }}
             >
-                👋 Welcome, {user?.firstsName || "User"}!
+                👋 Welcome, {user?.firstName || "User"}!
       </div>
+            <h1 className="text-center">Quotes around the world</h1>
             <div className="container my-4">
                 <Outlet />
             </div>

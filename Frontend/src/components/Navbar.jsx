@@ -29,12 +29,12 @@ function Navbar() {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav ms-auto">
                         <li className="nav-item mx-2">
-                            <Link className="nav-link text-white" to="/user/home">
+                            <Link className="nav-link text-white" to="/user/quotes">
                                 Home
               </Link>
                         </li>
                         <li className="nav-item mx-2">
-                            <Link className="nav-link text-white" to="/user/quotes">
+                            <Link className="nav-link text-white" to="/user/home">
                                 My Quotes
               </Link>
                         </li>
