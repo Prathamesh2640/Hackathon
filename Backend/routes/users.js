@@ -5,8 +5,8 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
 
-router.get("/:id", (req, resp) => {
-  db.query("SELECT * FROM user WHERE id=?", [req.params.id], (err, results) => {
+router.get("/profile", (req, resp) => {
+  db.query("SELECT * FROM user WHERE id=?", [req.body.id], (err, results) => {
     if (err) return resp.send(apiError(err));
     if (results.length !== 1) return resp.send(apiError("User not found"));
     return resp.send(apiSuccess(results[0]));
@@ -18,6 +18,21 @@ router.get("/byemail/:email", (req, resp) => {
   db.query(
     "SELECT * FROM user WHERE email=?",
     [req.params.email],
+    (err, results) => {
+      if (err) return resp.send(apiError(err));
+      if (results.length !== 1) return resp.send(apiError("User not found"));
+      return resp.send(apiSuccess(results[0]));
+    }
+  );
+});
+
+//Update :
+
+router.put("/profile", (req, resp) => {
+  const { firstName, lastName, email, phoneno, address } = req.body;
+  db.query(
+    "UPDATE user SET firstName = ?,lastName = ?, email=?, phoneno=?, address=? WHERE id = ?",
+    [firstName, lastName, email, phoneno, address, req.body.id],
     (err, results) => {
       if (err) return resp.send(apiError(err));
       if (results.length !== 1) return resp.send(apiError("User not found"));
@@ -47,7 +62,6 @@ router.post("/signin", (req, resp) => {
     resp.send(apiSuccess({ ...dbUser, token })); // password matched for this user
   });
 });
-//Hiisssssssssssss
 // POST /users
 router.post("/signup", (req, resp) => {
   const { firstName, lastName, email, phoneno, address, password } = req.body;
