@@ -4,20 +4,19 @@ import axios from 'axios';
 const QuoteCard = ({ quote }) => {
     const [isFavorite, setIsFavorite] = useState(quote.isFavorite);
 
-    const handleFavoriteToggle = async () => {
-        try {
-            if (isFavorite) {
-                await axios.delete(`/api/favorites/${quote.id}`);
-            } else {
-                await axios.post('/api/favorites', {
-                    quoteId: quote.id,
-                    author: quote.author,
-                    contents: quote.contents
-                });
-            }
-            setIsFavorite(!isFavorite);
-        } catch (error) {
-            console.error('Error updating favorite:', error);
+    const toggleFavorite = () => {
+        if (isFavorite) {
+            axios.delete(`/api/favorites/${quote.id}`)
+                .then(() => setIsFavorite(false))
+                .catch((err) => console.log(err));
+        } else {
+            axios.post('/api/favorites', {
+                quoteId: quote.id,
+                author: quote.author,
+                contents: quote.contents
+            })
+                .then(() => setIsFavorite(true))
+                .catch((err) => console.log(err));
         }
     };
 
@@ -28,10 +27,10 @@ const QuoteCard = ({ quote }) => {
                 <p className="card-text">{quote.contents}</p>
                 <button
                     className={`btn ${isFavorite ? 'btn-danger' : 'btn-outline-danger'}`}
-                    onClick={handleFavoriteToggle}
+                    onClick={toggleFavorite}
                 >
                     <i className={`bi ${isFavorite ? 'bi-heart-fill' : 'bi-heart'}`}></i> Favorite
-        </button>
+                </button>
             </div>
         </div>
     );

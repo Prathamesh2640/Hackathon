@@ -1,37 +1,44 @@
 import { useEffect, useState } from "react";
-import { getAllQuotes } from "../services/quotes";
-import { toast } from "react-toastify";
+import { getAllQuotes } from "../services/quotes"; // Assumes you have this function
 import QuoteCard from "./QuoteCard";
-import { useLocation } from "react-router";
 
 const QuoteList = () => {
-    const location = useLocation();
     const [quotes, setQuotes] = useState([]);
 
-    async function loadQuotes() {
-        try {
-
-            const quoteList = await getAllQuotes();
-            setQuotes(quoteList);
-
-        } catch (err) {
-            console.log(err);
-            toast.error(err.message);
-        }
-    }
-
     useEffect(() => {
+        async function loadQuotes() {
+            try {
+                const quoteList = await getAllQuotes();
+                setQuotes(quoteList);
+            } catch (err) {
+                console.log("Error fetching quotes:", err);
+            }
+        }
+
         loadQuotes();
     }, []);
 
     return (
-        <div>
-            <h1>Quote List</h1>
+        <div className="container mt-4">
+            <h2 className="mb-4">Quote List</h2>
             {quotes.map((q) => (
-                <QuoteCard key={"quote" + q.id} quote={q} />
+                <QuoteCard key={q.id} quote={q} />
             ))}
         </div>
     );
 };
 
 export default QuoteList;
+
+
+
+
+
+
+
+
+
+
+
+
+

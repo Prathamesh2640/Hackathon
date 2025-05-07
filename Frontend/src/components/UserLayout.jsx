@@ -16,9 +16,17 @@ const UserLayout = () => {
                 👋 Welcome, {user?.firstName || "User"}!
       </div>
             <h1 className="text-center">Quotes around the world</h1>
+
             <div className="container my-4">
                 <Outlet />
             </div>
+            <div className="d-flex justify-content-end mb-3">
+                <button className="btn btn-primary me-2">All</button>
+                <button className="btn btn-outline-danger">My Favourites</button>
+            </div>
+
+
+
         </div>
     );
 };
