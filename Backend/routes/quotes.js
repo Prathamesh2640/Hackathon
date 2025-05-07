@@ -69,4 +69,24 @@ router.patch("/update", (req, resp) => {
   );
 });
 
+router.post("/mark", (req, resp) => {
+  db.query(
+    "INSERT INTO favourite (userId,quoteId) VALUES(?,?)",
+    [req.user.id, req.body.quoteId],
+    (err, result) => {
+      if (err) return resp.send(apiError(err));
+      if (result.affectedRows === 1) {
+        db.query(
+          "SELECT * FROM favourite WHERE id=?",
+          [result.insertId],
+          (err, results) => {
+            if (err) return resp.send(apiError(err));
+            resp.send(apiSuccess(results[0]));
+          }
+        );
+      }
+    }
+  );
+});
+
 module.exports = router;
