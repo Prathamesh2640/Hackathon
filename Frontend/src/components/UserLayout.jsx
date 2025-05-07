@@ -2,6 +2,7 @@ import { Outlet } from "react-router";
 import Navbar from "./Navbar";
 import { AuthContext } from "../App";
 import { useContext } from "react";
+import QuoteList from "./QuoteList";
 
 const UserLayout = () => {
     const { user } = useContext(AuthContext);
@@ -20,13 +21,6 @@ const UserLayout = () => {
             <div className="container my-4">
                 <Outlet />
             </div>
-            <div className="d-flex justify-content-end mb-3">
-                <button className="btn btn-primary me-2">All</button>
-                <button className="btn btn-outline-danger">My Favourites</button>
-            </div>
-
-
-
         </div>
     );
 };

@@ -42,17 +42,18 @@ export async function getAllQuotes() {
     return data;
 }
 
-// export async function getBooksByCategory(category) {
-//     const url = `${baseUrl}/books/bycategory/${category}`;
-//     const resp = await axios.get(url);
-//     if (resp.status !== 200)
-//         // check axios resp status (200 or else)
-//         throw new Error("Axios API call Error");
-//     // get axios resp data - result
-//     const result = resp.data;
-//     if (result.status !== "success")
-//         // if api status is not success ("error"), then get the message
-//         throw new Error(result.message);
-//     const data = result.data;
-//     return data;
-// }
+export async function getMyQuotes() {
+    const url = `${baseUrl}/quote/my`;
+    const user = sessionStorage.getItem("user");
+    console.log(user);
+    const resp = await axios.get(url, user.id, getConfig());
+    if (resp.status !== 200)
+        throw new Error("Axios API call Error");
+    const result = resp.data;
+    if (result.status !== "success")
+        throw new Error(result.message);
+    const data = result.data;
+    return data;
+}
+
+

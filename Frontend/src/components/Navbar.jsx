@@ -6,8 +6,8 @@ function Navbar() {
 
     const onLogout = () => {
         console.log("Logout clicked!");
-        sessionStorage.clear(); // Optional: Clear user session if stored
-        navigate("/"); // Redirect to home
+        sessionStorage.clear();
+        navigate("/");
     };
 
     return (
@@ -34,7 +34,7 @@ function Navbar() {
               </Link>
                         </li>
                         <li className="nav-item mx-2">
-                            <Link className="nav-link text-white" to="/user/home">
+                            <Link className="nav-link text-white" to="/user/myquotes">
                                 My Quotes
               </Link>
                         </li>
@@ -54,6 +54,7 @@ function Navbar() {
                     </ul>
                 </div>
             </div>
+
         </nav>
     );
 }

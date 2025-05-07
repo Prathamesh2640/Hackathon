@@ -4,7 +4,7 @@ import "bootstrap/dist/js/bootstrap.bundle.js";
 import Home from "./components/Home";
 import LoginForm from "./components/LoginForm";
 import RegistrationForm from "./components/RegistrationForm";
-// import CategoryList from "./components/CategoryList";s
+
 // import ShoppingCart from "./components/ShoppingCart";
 // import OrderList from "./components/OrderList";
 // import BookForm from "./components/BookForm";
@@ -12,6 +12,9 @@ import RegistrationForm from "./components/RegistrationForm";
 import UserLayout from "./components/UserLayout";
 import { createContext, useState } from "react";
 import QuoteList from "./components/QuoteList";
+import UserQuotes from "./components/UserQuotes";
+import Profile from "./components/Profile";
+import MyQuotes from "./components/MyQuotes";
 
 export const AuthContext = createContext();
 
@@ -34,10 +37,14 @@ function App() {
           <Route path="/register" element={<RegistrationForm />} />
           {/* /user/url */}
           <Route path="/user" element={<UserLayout />}>
+
             {/* <Route index="true" element={<UserDashboard />} /> */}
-            {/* <Route path="categories" element={<CategoryList />} /> */}
+            {/* <Route path="my" element={<UserQuotes />} /> */}
             <Route path="quotes" element={<QuoteList />} />
-            {/* <Route path="cart" element={<ShoppingCart />} /> */}
+            <Route path="profile" element={<Profile />} />
+            <Route path="myquotes" element={< MyQuotes />} />
+
+
             {/* <Route path="orders" element={<OrderList />} /> */}
             {/* <Route path="newbook" element={<BookForm />} /> */}
           </Route>

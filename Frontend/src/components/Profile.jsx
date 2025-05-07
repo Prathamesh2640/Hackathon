@@ -10,12 +10,13 @@ const Profile = () => {
         address: ""
     });
 
-    // Load initial user data (simulate or fetch from API)
     useEffect(() => {
         async function fetchProfile() {
             try {
-                const res = await axios.get("/api/profile");
-                setFormData(res.data);
+                const storedData = sessionStorage.getItem("user");
+                if (storedData) {
+                    setFormData(JSON.parse(storedData));
+                }
             } catch (err) {
                 console.log("Error fetching profile:", err);
             }
@@ -30,7 +31,8 @@ const Profile = () => {
 
     const handleUpdate = async () => {
         try {
-            await axios.put("/api/profile", formData);
+            const { id, firstName, lastName, email, phoneno, address } = [...formData];
+            await axios.put("/users/profile", [id, firstName, lastName, email, phoneno, address]);
             alert("Profile updated successfully!");
         } catch (err) {
             console.log("Error updating profile:", err);

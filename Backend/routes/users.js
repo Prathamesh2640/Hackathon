@@ -25,7 +25,18 @@ router.get("/byemail/:email", (req, resp) => {
     }
   );
 });
-
+router.put("/profile", (req, resp) => {
+  const { firstName, lastName, email, phoneno, address } = req.body;
+  db.query(
+    "UPDATE user SET firstName = ?,lastName = ?, email=?, phoneno=?, address=? WHERE id = ?",
+    [firstName, lastName, email, phoneno, address, req.body.id],
+    (err, results) => {
+      if (err) return resp.send(apiError(err));
+      if (results.length !== 1) return resp.send(apiError("User not found"));
+      return resp.send(apiSuccess(results[0]));
+    }
+  );
+});
 // POST /users/signin
 router.post("/signin", (req, resp) => {
   const { email, password } = req.body;

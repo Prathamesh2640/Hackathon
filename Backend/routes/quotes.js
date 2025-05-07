@@ -15,7 +15,7 @@ router.get("", (req, resp) => {
 router.get("/my", (req, resp) => {
   db.query(
     "SELECT * FROM quote WHERE userId = ?",
-    [req.user.id],
+    [req.body.id],
     (err, result) => {
       if (err) return resp.send(apiError(err));
       if (result.length === 0) return resp.send(apiError("No Quote found"));
@@ -68,5 +68,8 @@ router.patch("/update", (req, resp) => {
     }
   );
 });
+
+
+
 
 module.exports = router;
