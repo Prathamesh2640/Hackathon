@@ -5,8 +5,8 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
 
-router.get("/profile", (req, resp) => {
-  db.query("SELECT * FROM user WHERE id=?", [req.body.id], (err, results) => {
+router.get("/:id", (req, resp) => {
+  db.query("SELECT * FROM user WHERE id=?", [req.params.id], (err, results) => {
     if (err) return resp.send(apiError(err));
     if (results.length !== 1) return resp.send(apiError("User not found"));
     return resp.send(apiSuccess(results[0]));
@@ -25,9 +25,6 @@ router.get("/byemail/:email", (req, resp) => {
     }
   );
 });
-
-//Update :
-
 router.put("/profile", (req, resp) => {
   const { firstName, lastName, email, phoneno, address } = req.body;
   db.query(
@@ -40,7 +37,6 @@ router.put("/profile", (req, resp) => {
     }
   );
 });
-
 // POST /users/signin
 router.post("/signin", (req, resp) => {
   const { email, password } = req.body;
@@ -62,6 +58,7 @@ router.post("/signin", (req, resp) => {
     resp.send(apiSuccess({ ...dbUser, token })); // password matched for this user
   });
 });
+//Hiisssssssssssss
 // POST /users
 router.post("/signup", (req, resp) => {
   const { firstName, lastName, email, phoneno, address, password } = req.body;
@@ -86,6 +83,20 @@ router.post("/signup", (req, resp) => {
   );
 });
 
-//Patch
+// PATCH /users/changepasswd
+router.patch("/changepasswd", (req, resp) => {
+  const { id, passwd } = req.body;
+  const encPasswd = bcrypt.hashSync(passwd, 10);
+  db.query(
+    "UPDATE users SET passwd=? WHERE id=?",
+    [encPasswd, id],
+    (err, result) => {
+      if (err) return resp.send(apiError(err));
+      if (result.affectedRows !== 1)
+        return resp.send(apiError("User not found"));
+      resp.send(apiSuccess("User password updated"));
+    }
+  );
+});
 
 module.exports = router;

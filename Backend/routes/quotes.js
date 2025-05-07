@@ -15,7 +15,7 @@ router.get("", (req, resp) => {
 router.get("/my", (req, resp) => {
   db.query(
     "SELECT * FROM quote WHERE userId = ?",
-    [req.user.id],
+    [req.body.id],
     (err, result) => {
       if (err) return resp.send(apiError(err));
       if (result.length === 0) return resp.send(apiError("No Quote found"));
@@ -69,6 +69,7 @@ router.patch("/update", (req, resp) => {
   );
 });
 
+<<<<<<< HEAD
 router.post("/mark", (req, resp) => {
   db.query(
     "INSERT INTO favourite (userId,quoteId) VALUES(?,?)",
@@ -88,5 +89,9 @@ router.post("/mark", (req, resp) => {
     }
   );
 });
+=======
+
+
+>>>>>>> 83265c3d239c6a4e7f26f033f1404e579ea05b4b
 
 module.exports = router;

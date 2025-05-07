@@ -29,8 +29,6 @@ const LoginForm = () => {
             navigate("/user");
         } catch (err) {
             toast.error("Invalid credentials. Please try again.");
-        } finally {
-            setLoading(false);
         }
     };
 
