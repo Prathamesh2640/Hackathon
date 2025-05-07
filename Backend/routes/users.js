@@ -47,7 +47,7 @@ router.post("/signin", (req, resp) => {
     resp.send(apiSuccess({ ...dbUser, token })); // password matched for this user
   });
 });
-
+//Hiisssssssssssss
 // POST /users
 router.post("/signup", (req, resp) => {
   const { firstName, lastName, email, phoneno, address, password } = req.body;
@@ -72,20 +72,6 @@ router.post("/signup", (req, resp) => {
   );
 });
 
-// PATCH /users/changepasswd
-router.patch("/changepasswd", (req, resp) => {
-  const { id, passwd } = req.body;
-  const encPasswd = bcrypt.hashSync(passwd, 10);
-  db.query(
-    "UPDATE users SET passwd=? WHERE id=?",
-    [encPasswd, id],
-    (err, result) => {
-      if (err) return resp.send(apiError(err));
-      if (result.affectedRows !== 1)
-        return resp.send(apiError("User not found"));
-      resp.send(apiSuccess("User password updated"));
-    }
-  );
-});
+//Patch
 
 module.exports = router;
