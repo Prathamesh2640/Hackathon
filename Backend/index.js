@@ -5,11 +5,15 @@ const quoteRouter = require("./routes/quotes");
 const { jwtAuth } = require("./utils/jwtauth");
 app.use(express.json());
 app.use(express.static("public"));
-app.use(jwtAuth);
+// app.use(jwtAuth);
+const cors = require("cors");
+app.use(cors());
 app.use("/users", userRouter);
-app.use("/quote", quoteRouter);
+// app.use("/quote", quoteRouter);
 
 const port = 3000;
 app.listen(port, "0.0.0.0", () => {
   console.log("server ready at port", port);
 });
+
+
